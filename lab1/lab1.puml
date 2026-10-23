@@ -1,0 +1,35 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+
+abstract class AbstractUser {
+  + {abstract} showInfo()
+}
+
+class User {
+  + {static} userCount : int
+  + name : string
+  + login : string
+  - password : string
+  + __construct(name, login, password)
+  + __destruct()
+  + showInfo()
+  + getPassword() : string
+}
+
+interface SuperUserInterface {
+  + getInfo() : array
+}
+
+class SuperUser {
+  + {static} superUserCount : int
+  + role : string
+  + __construct(name, login, password, role)
+  + showInfo()
+  + getInfo() : array
+}
+
+AbstractUser <|-- User
+User <|-- SuperUser
+SuperUserInterface <|.. SuperUser
+@enduml
