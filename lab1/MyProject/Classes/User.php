@@ -9,37 +9,23 @@ namespace MyProject\Classes;
  */
 class User extends AbstractUser
 {
-    /**
-     * Имя пользователя.
-     *
-     * @var string
-     */
+    /** @var string Имя пользователя */
     public string $name;
 
-    /**
-     * Логин пользователя.
-     *
-     * @var string
-     */
+    /** @var string Логин пользователя */
     public string $login;
 
-    /**
-     * Пароль пользователя (приватное свойство).
-     *
-     * @var string
-     */
+    /** @var string Пароль пользователя (приватное свойство) */
     private string $password;
 
-    /**
-     * Статический счётчик созданных экземпляров класса User.
-     *
-     * @var int
-     */
+    /** @var int Статический счётчик созданных экземпляров класса User */
     public static int $userCount = 0;
 
     /**
      * Конструктор класса User.
      * Инициализирует свойства и увеличивает счётчик объектов.
+     * Счётчик увеличивается только при создании экземпляра именно класса User,
+     * а не его наследников (например, SuperUser).
      *
      * @param string $name     Имя пользователя
      * @param string $login    Логин пользователя
@@ -50,12 +36,15 @@ class User extends AbstractUser
         $this->name = $name;
         $this->login = $login;
         $this->password = $password;
-        self::$userCount++;
+        
+        // Инкрементируем счётчик только если создаётся именно User, а не наследник
+        if (static::class === self::class) {
+            self::$userCount++;
+        }
     }
 
     /**
      * Деструктор класса.
-     * Выводит сообщение об удалении пользователя.
      */
     public function __destruct()
     {
@@ -64,9 +53,6 @@ class User extends AbstractUser
 
     /**
      * Выводит информацию о пользователе.
-     * Реализация абстрактного метода родительского класса.
-     *
-     * @return void
      */
     public function showInfo(): void
     {
@@ -75,9 +61,6 @@ class User extends AbstractUser
 
     /**
      * Геттер для приватного свойства password.
-     * Необходим для доступа из дочернего класса SuperUser.
-     *
-     * @return string Пароль пользователя
      */
     public function getPassword(): string
     {
