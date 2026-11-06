@@ -1,1 +1,62 @@
+@startuml
+interface Iterator {
+    +rewind()
+    +valid() : bool
+    +next()
+    +key()
+    +current()
+}
 
+interface IteratorAggregate {
+    +getIterator() : Iterator
+}
+
+interface INewsDB {
+    +saveNews(title, category, description, source) : boolean
+    +getNews() : array
+    +deleteNews(id) : boolean
+}
+
+class NumbersSquared {
+    -start : int
+    -end : int
+    -current : int
+    +__construct(start, end)
+    +rewind()
+    +valid() : bool
+    +next()
+    +key()
+    +current()
+}
+
+class NewsDB {
+    -DB_NAME : const = "news.db"
+    -_db : SQLite3
+    -items : array = []
+    +__construct()
+    +__destruct()
+    +__get(name)
+    -getCategories()
+    +getIterator() : Iterator
+    +saveNews(title, category, description, source) : boolean
+    +getNews() : array
+    +deleteNews(id) : boolean
+}
+
+class ArrayIterator {
+    +__construct(array)
+}
+
+class SQLite3 {
+    +exec(sql)
+    +query(sql)
+    +prepare(sql)
+}
+
+Iterator <|.. NumbersSquared
+IteratorAggregate <|.. NewsDB
+INewsDB <|.. NewsDB
+NewsDB o-- SQLite3 : _db
+NewsDB ..> ArrayIterator : создаёт
+ArrayIterator ..|> Iterator
+@enduml
