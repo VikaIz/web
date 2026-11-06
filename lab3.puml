@@ -1,0 +1,27 @@
+@startuml
+interface INewsDB {
+    +saveNews(title, category, description, source) : boolean
+    +getNews() : array
+    +deleteNews(id) : boolean
+}
+
+class NewsDB {
+    -DB_NAME : const = "news.db"
+    -_db : SQLite3
+    +__construct()
+    +__destruct()
+    +__get(name)
+    +saveNews(title, category, description, source) : boolean
+    +getNews() : array
+    +deleteNews(id) : boolean
+}
+
+class SQLite3 {
+    +exec(sql)
+    +query(sql)
+    +prepare(sql)
+}
+
+INewsDB <|.. NewsDB
+NewsDB o-- SQLite3 : _db
+@enduml
