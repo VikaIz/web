@@ -58,5 +58,5 @@ IteratorAggregate <|.. NewsDB
 INewsDB <|.. NewsDB
 NewsDB o-- SQLite3 : _db
 NewsDB ..> ArrayIterator : создаёт
-ArrayIterator ..|> Iterator
+
 @enduml
