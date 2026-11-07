@@ -30,7 +30,7 @@ class NumbersSquared {
 }
 
 class NewsDB {
-    -DB_NAME : const = "news.db"
+    + DB_NAME : const = "news.db"
     -_db : SQLite3
     -items : array = []
     +__construct()
