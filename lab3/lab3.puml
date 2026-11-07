@@ -6,7 +6,7 @@ interface INewsDB {
 }
 
 class NewsDB {
-    -DB_NAME : const = "news.db"
+    + DB_NAME : const = "news.db"
     -_db : SQLite3
     +__construct()
     +__destruct()
